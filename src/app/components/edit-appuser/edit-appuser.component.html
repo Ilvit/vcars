@@ -1,0 +1,42 @@
+<div class="p-3 ">
+    <div class="card col-6 offset-3 ">
+        <div class="card-header">
+            <h5 class="modal-title">EDIT APP'USER</h5>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="editAppUserFormGroup" (ngSubmit)="updateAppUser()" >
+                <div class="input-group">
+                    <label class="input-group-text " for="{{'i_'+userToUpdate.username}}">Username</label>
+                    <input type="text" name="" id="{{'i_'+userToUpdate.username}}"
+                    formControlName="username" class="form-control " >
+                </div>
+                <div class="input-group mt-1">
+                    <label for="i_password" class="input-group-text ">Password</label>
+                    <input type="password" id="i_password" class="form-control"formControlName="password">
+                </div>
+                <div class="input-group mt-1">
+                    <label for="i_password2" class="input-group-text ">Password</label>
+                    <input type="password" id="i_password2" class="form-control"formControlName="password2">
+                </div> 
+                <div class="input-group mt-1">
+                    <label for="i_mail" class="input-group-text ">E-mail</label>
+                    <input type="text" id="i_mail" class="form-control"formControlName="mail">
+                </div>
+                <div>Set roles</div>
+                <div >
+                    <ul>
+                        <li *ngFor="let ur of userToUpdate.userRoles"> 
+                            <input class="form-check-input mt-1  " id="{{ur.roleName}}" type="checkbox"
+                            [(ngModel)]="ur.hasRole" [ngModelOptions]="{standalone:true}">
+                            <label for="{{ur.roleName}}" class="ms-2 ">{{ur.roleName}}</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar">
+                    <button  type="submit" title="save" [disabled]="editAppUserFormGroup.invalid" class="btn  btn-primary mt-2 ">submit</button>
+                    <a title="return to the app-user's page" (click)="gotoUsers()" class="btn btn-close btn-danger mt-2 "></a>  
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

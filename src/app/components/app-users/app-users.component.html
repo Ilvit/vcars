@@ -1,0 +1,148 @@
+<div class="container">
+    <div class="form-control mt-2  ">
+        <button type="button" title="create new app'user" class="btn btn-outline-primary "
+        data-bs-toggle="modal" data-bs-target="#newAppUserForm"(click)="newAppUser()">
+            New
+            <i class="bi bi-plus-circle-fill" ></i>
+        </button>
+    </div>
+    <div class="p-3">        
+        <div class="card">
+            <div class="card-header">
+                Users List
+            </div>
+            <div class="card-body">
+                <table class="table table-striped ">
+                    <thead>
+                        <th>ID</th><th>USERNAME</th><th>E-MAIL</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let au of appUsersDTOList.appUsers">
+                            <td>{{au.id}} </td>
+                            <td>{{au.username}} </td>
+                            <td>{{au.mail}} </td>
+                            <td >
+                                <button title="show details" class="btn btn-sm btn-info "(click)="showDetails(au)"
+                                data-bs-toggle="modal" data-bs-target="#userDetailsId">
+                                    <i class="bi bi-info"></i>
+                                </button>
+                            </td>
+                            <td >
+                                <button title="edit" (click)="editAppUser(au)" class="btn btn-sm btn-warning "
+                                data-bs-toggle="modal" data-bs-target="#editAppUserForm">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                            </td>
+                            <td >
+                                <button type="button" title="delete" (click)="confirmDeleteAppUser(au)" class="btn btn-sm btn-danger "
+                                data-bs-toggle="modal" data-bs-target="#confirmDelete">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div  class="modal fade " tabindex="-1" id="userDetailsId" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">THE APP'USER DETAILS</h5>           
+        </div>
+        <div class="modal-body ">
+          <div class="card">
+            <div *ngIf="appUser" class="card-body">
+                <div>
+                    <label for="">ID : </label>
+                    <span class="text-primary ms-2 " >{{appUser.id}}</span>
+                </div>
+                <div>
+                    <label for="">Username : </label>
+                    <span class="text-primary ms-2 " >{{appUser.username}}</span>
+                </div>               
+                <div>
+                    <label for="">E-mail : </label>
+                    <span class="text-primary ms-2 " >{{appUser.mail}}</span>
+                </div>
+                <div><label class="text-bg-primary mt-2  text-light " for="">Roles</label> </div>
+                <div>
+                    <ul>
+                        <li *ngFor="let r of appUser.roles">
+                            {{r.roleName}}                            
+                        </li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class=" btn btn-sm  btn-primary  "data-bs-dismiss="modal" >OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div  class="modal " tabindex="-1" id="newAppUserForm" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">ADD NEW APP'USER</h5>              
+        </div>        
+        <div class="modal-body ">
+          <div class="card">            
+            <div class="card-body">
+                <form [formGroup]="newAppUserFormGroup" (ngSubmit)="saveAppUser()" >
+                    <div class="input-group">
+                        <label for="i_username" class="input-group-text ">Username</label>
+                        <input type="text" id="i_username" class="form-control"formControlName="username">
+                    </div>
+                    <div class="input-group mt-1">
+                        <label for="i_password" class="input-group-text ">Password</label>
+                        <input type="password" id="i_password" class="form-control"formControlName="password">
+                    </div>
+                    <div class="input-group mt-1">
+                        <label for="i_password2" class="input-group-text ">Password</label>
+                        <input type="password" id="i_password2" class="form-control"formControlName="password2">
+                    </div>
+                    
+                    <div class="input-group mt-1">
+                        <label for="i_mail" class="input-group-text ">E-mail</label>
+                        <input type="text" id="i_mail" class="form-control"formControlName="mail">
+                    </div>
+                    <div>
+                        <button data-bs-dismiss="modal"  type="submit" title="save" [disabled]="newAppUserFormGroup.invalid" class="btn  btn-success mt-2 ">submit</button>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+
+  <div  class="modal fade " tabindex="-1" id="confirmDelete" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered">
+      <div *ngIf="userToDelete" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">CONFIRM DELETE</h5>           
+        </div>
+        <div class="modal-body ">
+          <div class="card">
+            <div class="card-body">
+                Do you want to delete <span class="text-primary ">{{userToDelete.username}}</span> ?
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class=" btn btn-sm  btn-primary  "data-bs-dismiss="modal"
+            (click)="deleteAppUser(userToDelete.id)" >Yes</button>
+            <button type="button" class=" btn btn-sm  btn-danger  "data-bs-dismiss="modal"
+            (click)="exitDelete()" >No</button>
+        </div>
+      </div>
+    </div>
+  </div>

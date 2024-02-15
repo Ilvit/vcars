@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-sm   navbar-dark bg-dark   ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Logo</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav nav-tabs me-auto my-2  my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" routerLink="/user/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/user/cars" class="nav-link">Cars</a>
+          </li>
+          <li *ngIf="authService.roles.includes('CAR_MANAGER')" class="nav-item">
+            <a routerLink="/user/new-car" class="nav-link">New-Car</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/user/taxations" class="nav-link">Taxations</a>
+          </li>
+          <li *ngIf="authService.roles.includes('USER_MANAGER')" class="nav-item">
+            <a routerLink="/user/app-users" class="nav-link">Users</a>
+          </li>
+          <li *ngIf="authService.roles.includes('USER_MANAGER')" class="nav-item">
+            <a routerLink="/user/app-users/connected-appusers" class="nav-link">Connected Users</a>
+          </li>
+        </ul>
+        <ul *ngIf="authService.isAuthenticated" class="navbar navbar-nav  " >
+          <li><button class="btn btn-outline-primary btn-sm text-warning ">{{authService.username}} </button> </li>
+          <li>
+            <button title="logout" type="button" class="btn btn-sm text-white " (click)="logout()" >
+              <i class="bi bi-box-arrow-right text-danger " style="font-size: 2em; color: #007bff;"></i>
+            </button>  
+          </li>
+        </ul>
+      </div>
+    </div> 
+  </nav>

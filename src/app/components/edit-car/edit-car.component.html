@@ -1,0 +1,44 @@
+<div class="p-3">    
+    <div class="card col-sm-6 offset-3 ">           
+        <div class="card-header text-center bg-info text-white   ">{{title}} {{carId}} </div>
+        <div class="card-body" *ngIf="editCarFormGroup">
+            <form [formGroup]="editCarFormGroup" (ngSubmit)="updateCar()" >
+                <div class="input-group">
+                    <label for="i_mark" class="input-group-text ">Mark</label>
+                    <input type="text" id="i_mark" class="form-control"formControlName="mark">
+                </div>
+                <div class="input-group mt-1">
+                    <label for="i_matric" class="input-group-text ">Matriculation</label>
+                    <input type="text" id="i_matric" class="form-control"formControlName="matriculation">
+                </div>
+                <div class="input-group mt-1">
+                    <label for="i_chassis" class="input-group-text ">Chassis Number</label>
+                    <input type="text" id="i_chassis" class="form-control"formControlName="chassisNumber">
+                </div>
+                <div class="input-group mt-1">
+                    <label for="i_category" class="input-group-text ">Category</label>
+                    <input type="text" id="i_category" class="form-control"formControlName="category">
+                </div>
+                <div class="input-group mt-1">
+                    <label for="i_owner" class="input-group-text ">Owner-ID</label>
+                    <input type="number" id="i_owner" class="form-control"formControlName="ownerId">
+                </div>
+                <div class="input-group mt-1">
+                    <label class="input-group-text ">Taxations</label>
+                    <ul class=" ">
+                        <li *ngFor="let tax of car.carTaxations" >
+                            <input class="form-check-input mt-1  " id="{{tax.taxationName}}" type="checkbox"
+                            [(ngModel)]="tax.paid"[ngModelOptions]="{standalone:true}">
+                            <label for="{{tax.taxationName}}" class="ms-2 ">{{tax.taxationName}}</label>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="navbar">
+                    <button type="submit" title="save" [disabled]="editCarFormGroup.invalid" class="btn  btn-success mt-2 ">Save</button>
+                    <a title="return to the cars page" (click)="gotoCars()" class="btn btn-close btn-danger mt-2 "></a>                  
+                </div>
+                
+            </form>
+        </div>
+    </div>

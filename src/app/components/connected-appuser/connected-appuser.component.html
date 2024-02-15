@@ -1,0 +1,29 @@
+<div class="p-3 ">
+    <div class="card">
+        <div class="card-header">
+            CONNECTED USER
+        </div>
+        <div class="card-body">
+            <table class="table table-striped ">
+                <thead>
+                    <th>ID</th><th>USERNAME</th><th>STATUS</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cu of connectedUsers" >
+                        <td>{{cu.id}} </td>
+                        <td>{{cu.username}} </td>
+                        <td *ngIf="cu.disconnected"> 
+                            <button class="btn btn-sm btn-danger " >Outline</button>
+                        </td>
+                        <td *ngIf="!cu.disconnected"> 
+                            <button class="btn btn-sm btn-success " >Online</button>
+                        </td>
+                        <td> 
+                            <button class="btn btn-sm btn-outline-danger " (click)="disconnectUser(cu.jwt)" >DISCONNECT</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

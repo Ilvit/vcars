@@ -1,0 +1,72 @@
+<div class="p-3">
+    <div class="card ">        
+        <div class="card-header">
+            CHOOSE TAXATIONS
+        </div>
+        
+        <div class="card-body">
+            <ul class="nav">
+                <li *ngFor="let st of taxationsList">
+                    <input type="checkbox" name="" id="{{st.taxationName}}"class="ms-3 "(change)="chooseTaxations()"
+                        [(ngModel)]="st.selected" >
+                    <label for="{{st.taxationName}}"class="ms-1 " >{{st.taxationName}} </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="card ">
+        <label for=""class="text-center text-bg-primary " >Total cars: <span class=" " >{{caresDtoPage.totalCars}}</span> </label>
+    </div>
+    <form action=""[formGroup]="searchFormGroup" (ngSubmit)="searchCars()" >
+        
+        <div class="input-group mt-2  ">
+            <label for="i_search"class="input-group-text " >Keyword</label>
+            <input type="search" id="i_search" class="form-control" formControlName="skeyword" >
+            <button title="search cars" type="submit" class="btn btn-primary ">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>    
+    </form>
+    <div class="card">
+        <div class="card-body">          
+            <table class="table table-striped table-striped ">
+                <thead>
+                    <tr>
+                        <th>ID</th><th>MARK</th><th>MATRICULATION</th>
+                        <th *ngFor="let taxation of caresDtoPage.taxationsList" >
+                            <span *ngIf="checked==0">{{taxation.taxationName}}</span>
+                            <span *ngIf="taxation.selected">{{taxation.taxationName}}</span>
+                        </th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let car of caresDtoPage.cresdto">
+                        <td>{{car.id}}</td>
+                        <td>{{car.mark}}</td>
+                        <td>{{car.matriculation}}</td>
+                        <td *ngFor="let ct of car.carTaxations" class="text-center ">
+                           <span *ngIf="checked==0">
+                            <i *ngIf="ct.paid==true" class="bi bi-check-circle-fill text-success text-start  " ></i>      
+                            <i *ngIf="ct.paid==false"class="bi bi-x-circle-fill text-danger " > </i> 
+                           </span>
+                            <span *ngIf="checked>0">
+                                <i *ngIf="ct.paid==true && selTaxes.includes(ct.taxationName)" class="bi bi-check-circle-fill text-success text-start  " ></i>
+                            </span>        
+                        </td>
+                    </tr>
+                </tbody>                
+            </table>
+        </div>
+        <div class="card-footer">
+            <nav>
+                <ul class="nav ">
+                    <li *ngFor="let p of caresDtoPage.carsPagesArray" class="nav-item" >
+                        <button [ngClass]="p==caresDtoPage.currentPage?'btn btn-primary ms-1':'btn btn-outline-info ms-1'" (click)="gotoPage(p)" >{{p}} </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
